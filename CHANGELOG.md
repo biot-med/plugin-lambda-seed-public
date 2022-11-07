@@ -1,3 +1,10 @@
+# Version 1.1.2
+
+**Released by**: Ori Roll **Release Date** 07 NOV 22
+
+## Changes
+
+- V bump
 # Version 1.1.1
 
 **Released by**: Ori Roll **Release Date** 06 NOV 22
