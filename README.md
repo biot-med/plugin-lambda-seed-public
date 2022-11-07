@@ -6,20 +6,20 @@ _This is a basic template for lambda to be used as a starting point for AWS lamb
 
 This seed works with different triggers (hooks), each hook has it's own functions to be used according to the data received from the hook and, accordingly, the data structure that needs to be returned from the lambda. The lambda first determines what hook is used and retrieves the relevant functions (using a mapper).
 
-For the lambda to work as is, the hookType property must be specified in the header sent in the event (except for non-specific lambdas, which the lambda defaults to if the hookType is not specified).
+For the lambda to work as is, the hooktype property must be specified in the header sent in the event (except for non-specific lambdas, which the lambda defaults to if the hooktype is not specified).
 
 **The supported hooks are:**
 
 - Notifications - notification services
-  - hookType name: `NOTIFICATION`
+  - hooktype name: `NOTIFICATION`
 - Interceptors for pre-requests
-  - hookType name: `INTERCEPTOR_PRE`
+  - hooktype name: `INTERCEPTOR_PRE`
 - Interceptors for post-requests
-  - hookType name: `INTERCEPTOR_POST`
+  - hooktype name: `INTERCEPTOR_POST`
 - Interceptors for Adapt entity (which are also post-requests)
-  - hookType name: `INTERCEPTOR_POST_ENTITY`
+  - hooktype name: `INTERCEPTOR_POST_ENTITY`
 - Other general lambdas not mentioned above
-  - ( hookType not required but in the code accessed using `NONSPECIFIC` )
+  - ( hooktype not required but in the code accessed using `NONSPECIFIC` )
 
 ## Basic code flow
 

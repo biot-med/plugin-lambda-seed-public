@@ -7,10 +7,10 @@ export const requestTypes = Object.freeze({
 });
 
 export const checkRequestType = (event) => {
-  if (event.headers?.hookType && requestTypes[event.headers?.hookType]) {
-    return requestTypes[event.headers?.hookType];
+  if (event.headers?.hooktype && requestTypes[event.headers?.hooktype]) {
+    return requestTypes[event.headers?.hooktype];
   } else {
-    console.warn("No hookType provided");
+    console.warn("No hooktype provided");
     return requestTypes.NONSPECIFIC;
   }
 };

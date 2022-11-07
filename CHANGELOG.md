@@ -15,7 +15,7 @@
 
 - The lambda is more generic now and can apply to interceptors, notifications and other triggers
   - Added folders for different hook types
-  - Added a mapper by hookType for the functions in the folders
+  - Added a mapper by hooktype for the functions in the folders
   - Created data extraction functions for each
   - Created distinct perform functions for each with specific responses returned
   - Modified the error responses to work with interceptors
