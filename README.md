@@ -6,20 +6,20 @@ _This is a basic template for lambda to be used as a starting point for AWS lamb
 
 This seed works with different triggers (hooks), each hook has it's own functions to be used according to the data received from the hook and, accordingly, the data structure that needs to be returned from the lambda. The lambda first determines what hook is used and retrieves the relevant functions (using a mapper).
 
-For the lambda to work as is, the hooktype property must be specified in the header sent in the event (except for non-specific lambdas, which the lambda defaults to if the hooktype is not specified).
+For the lambda to work as is, the hookType property must be specified in the header sent in the event (except for non-specific lambdas, which the lambda defaults to if the hookType is not specified).
 
 **The supported hooks are:**
 
 - Notifications - notification services
-  - hooktype name: `NOTIFICATION`
+  - hookType name: `NOTIFICATION`
 - Interceptors for pre-requests
-  - hooktype name: `INTERCEPTOR_PRE`
+  - hookType name: `INTERCEPTOR_PRE`
 - Interceptors for post-requests
-  - hooktype name: `INTERCEPTOR_POST`
+  - hookType name: `INTERCEPTOR_POST`
 - Interceptors for Adapt entity (which are also post-requests)
-  - hooktype name: `INTERCEPTOR_POST_ENTITY`
+  - hookType name: `INTERCEPTOR_POST_ENTITY`
 - Other general lambdas not mentioned above
-  - ( hooktype not required but in the code accessed using `NONSPECIFIC` )
+  - ( hookType not required but in the code accessed using `NONSPECIFIC` )
 
 ## Basic code flow
 
@@ -35,7 +35,7 @@ For the lambda to work as is, the hooktype property must be specified in the hea
 
 - `traceId = eventTraceId || (await getTraceId())` - get a traceId from the event (or fallback to a traceId from a BioT service)
 
-- `configureLogger` - creating new logs format that follows the structure required for dataDog logs (including a traceId). Environment variable SHOULD_VALIDATE_JWT should be false if the lambda does not receive a token, otherwise authentication will fail the lambda
+- `configureLogger` - creating new logs format that follows the structure required for dataDog logs (including a traceId). Environment variable BIOT_SHOULD_VALIDATE_JWT should be false if the lambda does not receive a token, otherwise authentication will fail the lambda
 
 - `authenticate` - authenticate the token sent by the notification service.
 
@@ -53,22 +53,22 @@ For the lambda to work as is, the hooktype property must be specified in the hea
 
 **Make sure to define these env variables in your lambda**:
 
-- `APP_NAME` - name of this lambda - this is for logging purposes
+- `BIOT_APP_NAME` - name of this lambda - this is for logging purposes
 
-- `BASE_URL` - for example https://api.int.biot-med.com
+- `BIOT_BASE_URL` - for example https://api.int.biot-med.com
 
-- `JWT_PERMISSION` - permissions sent in the token.
+- `BIOT_JWT_PERMISSION_INTERCEPTION` or `BIOT_JWT_PERMISSION_NOTIFICATION` - permissions sent in the token.
   The default for this is a single string - `ACTION_NOTIFICATION` for notifications or `PLUGIN_INTERCEPTOR` for interceptors.
 
-- `SERVICE_ENVIRONMENT` - for instance "gen2int"
+- `BIOT_SERVICE_ENVIRONMENT` - for instance "gen2int"
 
 - `BIOT_PUBLIC_KEY` - the public key to verify the token sent by the notification service
 
-- `SERVICE_USER_ID` - the lambdas service users id
+- `BIOT_SERVICE_USER_ID` - the lambdas service users id
 
-- `SERVICE_USER_SECRET_KEY` - the lambdas service users secret key
+- `BIOT_SERVICE_USER_SECRET_KEY` - the lambdas service users secret key
 
-- `SHOULD_VALIDATE_JWT` - This should be false if the service does not
+- `BIOT_SHOULD_VALIDATE_JWT` - This should be false if the service does not
 
 ## Setups
 
@@ -90,3 +90,8 @@ Unused steps and functions can be removed too.
 ### Constants
 
 For running locally you can use the dev constants (in constants file), Just make sure the functions using those variables are changed accordingly.
+
+### Interceptors - Note
+
+You can read about the interceptors' api calls here:
+https://softimize.atlassian.net/wiki/spaces/WIKI/pages/3013247000/Interceptor+Plugin

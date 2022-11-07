@@ -3,10 +3,10 @@ import JWT from "jsonwebtoken";
 import {
   BIOT_PUBLIC_KEY,
   JWT_ERROR,
-  JWT_PERMISSION,
-  BASE_URL,
-  SERVICE_USER_ID,
-  SERVICE_USER_SECRET_KEY,
+  BIOT_JWT_PERMISSION,
+  BIOT_BASE_URL,
+  BIOT_SERVICE_USER_ID,
+  BIOT_SERVICE_USER_SECRET_KEY,
 } from "../constants.js";
 
 export const authenticate = async (token, traceId) => {
@@ -17,10 +17,10 @@ export const authenticate = async (token, traceId) => {
     });
     // This checks the token's permission
 
-    if (JWT_PERMISSION) {
-      if (!jwtData.scopes?.includes(JWT_PERMISSION)) {
+    if (BIOT_JWT_PERMISSION) {
+      if (!jwtData.scopes?.includes(BIOT_JWT_PERMISSION)) {
         throw new Error(
-          `JWT does not have the required permissions. Missing: ${JWT_PERMISSION}`
+          `JWT does not have the required permissions. Missing: ${BIOT_JWT_PERMISSION}`
         );
       }
     }
@@ -30,16 +30,16 @@ export const authenticate = async (token, traceId) => {
 };
 
 export const login = async (traceId) => {
-  if (!BASE_URL) throw new Error("No BASE_URL");
-  if (!SERVICE_USER_ID) throw new Error("No SERVICE_USER_ID");
-  if (!SERVICE_USER_SECRET_KEY) throw new Error("No SERVICE_USER_SECRET_KEY");
+  if (!BIOT_BASE_URL) throw new Error("No BIOT_BASE_URL");
+  if (!BIOT_SERVICE_USER_ID) throw new Error("No BIOT_SERVICE_USER_ID");
+  if (!BIOT_SERVICE_USER_SECRET_KEY) throw new Error("No BIOT_SERVICE_USER_SECRET_KEY");
 
-  const url = `${BASE_URL}/ums/v2/services/accessToken`;
+  const url = `${BIOT_BASE_URL}/ums/v2/services/accessToken`;
   const response = await axios.post(
     url,
     {
-      id: SERVICE_USER_ID,
-      secretKey: SERVICE_USER_SECRET_KEY,
+      id: BIOT_SERVICE_USER_ID,
+      secretKey: BIOT_SERVICE_USER_SECRET_KEY,
     },
     {
       headers: {

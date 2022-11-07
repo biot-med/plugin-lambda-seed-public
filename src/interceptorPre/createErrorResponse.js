@@ -3,8 +3,8 @@ import {
   JWT_ERROR,
   NO_EVENT_ERROR,
   NO_DATA_ERROR,
-  SERVICE_ENVIRONMENT,
-  APP_NAME,
+  BIOT_SERVICE_ENVIRONMENT,
+  BIOT_APP_NAME,
 } from "../constants.js";
 
 const envFallback = "Not specified";
@@ -19,9 +19,9 @@ const errors = {
           ? `: "${JSON.stringify(error.cause?.message)}"`
           : "."
       }`,
-      serviceName: APP_NAME || envFallback,
+      serviceName: BIOT_APP_NAME || envFallback,
       traceId: traceId,
-      environment: SERVICE_ENVIRONMENT || envFallback,
+      environment: BIOT_SERVICE_ENVIRONMENT || envFallback,
       details: {},
     },
   }),
@@ -34,9 +34,9 @@ const errors = {
           ? `: "${JSON.stringify(error.cause?.message)}"`
           : "."
       }`,
-      serviceName: APP_NAME || envFallback,
+      serviceName: BIOT_APP_NAME || envFallback,
       traceId: traceId,
-      environment: SERVICE_ENVIRONMENT || envFallback,
+      environment: BIOT_SERVICE_ENVIRONMENT || envFallback,
       details: {},
     },
   }),
@@ -45,9 +45,9 @@ const errors = {
     body: {
       code: NO_EVENT_ERROR,
       message: "No event sent",
-      serviceName: APP_NAME || envFallback,
+      serviceName: BIOT_APP_NAME || envFallback,
       traceId: traceId,
-      environment: SERVICE_ENVIRONMENT || envFallback,
+      environment: BIOT_SERVICE_ENVIRONMENT || envFallback,
       details: {},
     },
   }),
@@ -56,9 +56,9 @@ const errors = {
     body: {
       code: NO_DATA_ERROR,
       message: "no data sent in event",
-      serviceName: APP_NAME || envFallback,
+      serviceName: BIOT_APP_NAME || envFallback,
       traceId: traceId,
-      environment: SERVICE_ENVIRONMENT || envFallback,
+      environment: BIOT_SERVICE_ENVIRONMENT || envFallback,
       details: {},
     },
   }),
@@ -67,9 +67,9 @@ const errors = {
     body: {
       code: InternalServerError,
       message: "internal server error",
-      serviceName: APP_NAME || envFallback,
+      serviceName: BIOT_APP_NAME || envFallback,
       traceId: traceId,
-      environment: SERVICE_ENVIRONMENT || envFallback,
+      environment: BIOT_SERVICE_ENVIRONMENT || envFallback,
       details: {},
     },
   }),

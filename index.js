@@ -1,6 +1,6 @@
 import { getTraceId, configureLogger, checkRequestType } from "./src/index.js";
 
-import { SHOULD_VALIDATE_JWT } from "./src/index.js";
+import { BIOT_SHOULD_VALIDATE_JWT } from "./src/index.js";
 
 import functionsMapper from "./src/index.js";
 
@@ -52,11 +52,11 @@ export const handler = async (event) => {
     }
 
     // This is the authentication process for the lambda itself
-    // Note: environment variable SHOULD_VALIDATE_JWT should be false if the lambda does not receive a token, otherwise authentication will fail the lambda
-    if (SHOULD_VALIDATE_JWT === "true") await authenticate(eventToken, traceId);
+    // Note: environment variable BIOT_SHOULD_VALIDATE_JWT should be false if the lambda does not receive a token, otherwise authentication will fail the lambda
+    if (BIOT_SHOULD_VALIDATE_JWT === "true") await authenticate(eventToken, traceId);
 
     // Here we are requesting a token for the lambda
-    // It is done using a service users SERVICE_USER_ID and SERVICE_USER_SECRET_KEY that should be set to an environment variable
+    // It is done using a service users BIOT_SERVICE_USER_ID and BIOT_SERVICE_USER_SECRET_KEY that should be set to an environment variable
     const token = await login(traceId);
 
     // Some of the properties sent to perform might not be relevant, depending on the type of lambda or lambda hook used to invoke it

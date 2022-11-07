@@ -1,3 +1,12 @@
+# Version 1.1.1
+
+**Released by**: Ori Roll **Release Date** 06 NOV 22
+
+## Changes
+
+- Added the prefix BIOT to env vars
+- Some cleanups
+
 # Version 0.0.2
 
 **Released by**: Ori Roll **Release Date** 22 SEP 22

@@ -1,4 +1,4 @@
-import { APP_NAME } from "../constants.js";
+import { BIOT_APP_NAME } from "../constants.js";
 
 let logOptions = [
   { function: "debug", level: "DEBUG", level_value: 10000 },
@@ -42,7 +42,7 @@ const createConsoleOverride = (
         message: joinedMessage,
         level: level,
         level_value: level_value,
-        appName: APP_NAME || "Notification Lambda",
+        appName: BIOT_APP_NAME || "Notification Lambda",
         traceId: traceId,
       })
     );
