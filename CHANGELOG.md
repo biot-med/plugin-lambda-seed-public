@@ -1,3 +1,10 @@
+# Version 1.1.4
+
+**Released by**: Ori Roll **Release Date** 08 NOV 22
+
+## Changes
+
+- Hooktype is case insensitive
 # Version 1.1.2
 
 **Released by**: Ori Roll **Release Date** 07 NOV 22
