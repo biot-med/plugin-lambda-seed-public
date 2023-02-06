@@ -12,7 +12,7 @@ export const getTraceId = async () => {
   let resTraceId;
   try {
     const response = await axios.get(API_TO_GET_TRACE_ID_FROM);
-    resTraceId = response.traceId;
+    resTraceId = response.data.traceId;
   } catch (error) {
     console.error("Error getting new trace id, setting to default");
   } finally {
