@@ -43,7 +43,7 @@ export const login = async (traceId) => {
     },
     {
       headers: {
-        "trace-id": traceId,
+        [TRACE_ID_KEY]: traceId,
       },
     }
   );

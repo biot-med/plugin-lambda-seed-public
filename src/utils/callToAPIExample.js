@@ -12,7 +12,7 @@ export const callToAPIExample = async (newToken, traceId) => {
       method: "get",
       url: BioTApiCallUrl,
       params: { searchRequest: {} },
-      headers: { authorization: `Bearer ${newToken}`, "trace-id": traceId },
+      headers: { authorization: `Bearer ${newToken}`, [TRACE_ID_KEY]: traceId },
     });
 
     const { data: patients } = response?.data || {};

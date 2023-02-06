@@ -1,6 +1,6 @@
 export const genericSuccessResponse = (traceId) => ({
   statusCode: 200,
   headers: {
-    "trace-id": traceId,
+    [TRACE_ID_KEY]: traceId,
   },
 });
