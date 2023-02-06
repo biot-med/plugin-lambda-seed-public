@@ -43,7 +43,7 @@ export const login = async (traceId) => {
     },
     {
       headers: {
-        "x-b3-traceid": traceId,
+        "trace-id": traceId,
       },
     }
   );

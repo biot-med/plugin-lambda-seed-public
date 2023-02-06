@@ -10,7 +10,7 @@ export const extractDataFromEvent = (event) => {
 
   const data = eventWithParsedData || null;
   const eventToken = eventHeaders.authorization.split(" ")[1] || null;
-  const eventTraceId = eventHeaders["x-b3-traceid"] || null;
+  const eventTraceId = eventHeaders["trace-id"] || null;
 
   if (!data) throw new Error(NO_DATA_ERROR);
   if (!eventToken) throw new Error(JWT_ERROR);
