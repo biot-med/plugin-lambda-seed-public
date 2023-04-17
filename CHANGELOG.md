@@ -1,3 +1,11 @@
+# Version 2.0.0
+
+**Release Date** 17 APR 23
+
+## Breaking changes
+
+- Changed 'x-b3-traceid' to 'trace-id'
+
 # Version 1.1.5
 
 **Released by**: Ori Roll **Release Date** 21 FEB 23
