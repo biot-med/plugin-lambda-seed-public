@@ -1,3 +1,11 @@
+# Version 2.0.1
+
+**Release Date** 19 APR 23
+
+## Bugfixes 
+
+- Fixed import issues
+
 # Version 2.0.0
 
 **Release Date** 17 APR 23
