@@ -4,6 +4,7 @@ import {
   NO_EVENT_ERROR,
   NO_METADATA_ERROR,
   NO_DATA_ERROR,
+  TRACE_ID_KEY,
 } from "../constants.js";
 
 const errors = {
