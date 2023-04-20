@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_CALL_ERROR, BIOT_BASE_URL } from "../constants.js";
+import { API_CALL_ERROR, BIOT_BASE_URL, TRACE_ID_KEY } from "../constants.js";
 
 /** This is a call to a BioT API, it can be any call provided the lambda service user has permission */
 
