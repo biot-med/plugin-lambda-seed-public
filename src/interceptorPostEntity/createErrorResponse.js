@@ -10,7 +10,7 @@ import {
 const envFallback = "Not specified";
 
 const errors = {
-  [API_CALL_ERROR]: (error, traceId) => ({
+  [API_CALL_ERROR]: (error, traceparent, traceId) => ({
     statusCode: 500,
     body: {
       code: API_CALL_ERROR,
@@ -75,10 +75,10 @@ const errors = {
   }),
 };
 
-export const createErrorResponse = (error, traceId) => {
+export const createErrorResponse = (error, traceparent, traceId) => {
   console.error("Got error: ", error);
   return (
-    (error && errors[error?.message]?.(error, traceId)) ||
+    (error && errors[error?.message]?.(error, traceparent, traceId)) ||
     errors.internalServerError(error, traceId)
   );
 };

@@ -75,7 +75,7 @@ const errors = {
   }),
 };
 
-export const createErrorResponse = (error, traceId) => {
+export const createErrorResponse = (error, traceparent, traceId) => {
   console.error("Got error: ", error);
   return (
     (error && errors[error?.message]?.(error, traceId)) ||

@@ -8,10 +8,10 @@ import {
 } from "../constants.js";
 
 const errors = {
-  [API_CALL_ERROR]: (error, traceId) => ({
+  [API_CALL_ERROR]: (error, traceparent, traceId) => ({
     statusCode: 500,
     headers: {
-      [TRACEPARENT_KEY]: traceId,
+      [TRACEPARENT_KEY]: traceparent,
     },
     body: JSON.stringify({
       code: API_CALL_ERROR,
@@ -24,10 +24,10 @@ const errors = {
       details: {},
     }),
   }),
-  [JWT_ERROR]: (error, traceId) => ({
+  [JWT_ERROR]: (error, traceparent, traceId) => ({
     statusCode: 400,
     headers: {
-      [TRACEPARENT_KEY]: traceId,
+      [TRACEPARENT_KEY]: traceparent,
     },
     body: JSON.stringify({
       code: JWT_ERROR,
@@ -40,10 +40,10 @@ const errors = {
       details: {},
     }),
   }),
-  [NO_EVENT_ERROR]: (error, traceId) => ({
+  [NO_EVENT_ERROR]: (error, traceparent, traceId) => ({
     statusCode: 400,
     headers: {
-      [TRACEPARENT_KEY]: traceId,
+      [TRACEPARENT_KEY]: traceparent,
     },
     body: JSON.stringify({
       code: NO_EVENT_ERROR,
@@ -51,10 +51,10 @@ const errors = {
       traceId: traceId,
     }),
   }),
-  [NO_METADATA_ERROR]: (error, traceId) => ({
+  [NO_METADATA_ERROR]: (error, traceparent, traceId) => ({
     statusCode: 400,
     headers: {
-      [TRACEPARENT_KEY]: traceId,
+      [TRACEPARENT_KEY]: traceparent,
     },
     body: JSON.stringify({
       code: NO_METADATA_ERROR,
@@ -62,10 +62,10 @@ const errors = {
       traceId: traceId,
     }),
   }),
-  [NO_DATA_ERROR]: (error, traceId) => ({
+  [NO_DATA_ERROR]: (error, traceparent, traceId) => ({
     statusCode: 400,
     headers: {
-      [TRACEPARENT_KEY]: traceId,
+      [TRACEPARENT_KEY]: traceparent,
     },
     body: JSON.stringify({
       code: NO_DATA_ERROR,
@@ -73,10 +73,10 @@ const errors = {
       traceId: traceId,
     }),
   }),
-  internalServerError: (error, traceId) => ({
+  internalServerError: (error, traceparent, traceId) => ({
     statusCode: 500,
     headers: {
-      [TRACEPARENT_KEY]: traceId,
+      [TRACEPARENT_KEY]: traceparent,
     },
     body: JSON.stringify({
       message: "internal server error",
@@ -85,10 +85,10 @@ const errors = {
   }),
 };
 
-export const createErrorResponse = (error, traceId) => {
+export const createErrorResponse = (error, traceparent, traceId) => {
   console.error("Got error: ", error);
   return (
-    (error && errors[error?.message]?.(error, traceId)) ||
-    errors.internalServerError(error, traceId)
+    (error && errors[error?.message]?.(error, traceparent, traceId)) ||
+    errors.internalServerError(error, traceparent, traceId)
   );
 };
