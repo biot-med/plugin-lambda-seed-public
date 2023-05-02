@@ -31,9 +31,9 @@ For the lambda to work as is, the hooktype property must be specified in the hea
 
 - `const { ... } = functionsMapper[requestType]` - This extracts the functions from the relevant hook type folder. If you use the lambda for just one of the hooks you can import the functions directly from the folder and delete this line.
 
-- `extractDataFromEvent` - extract the data, metadata, traceId and token from the lambda's event (this is diffract for each hook type).
+- `extractDataFromEvent` - extract the data, metadata, traceparent and token from the lambda's event (this is diffract for each hook type).
 
-- `traceId = eventTraceId || (await getTraceId())` - get a traceId from the event (or fallback to a traceId from a BioT service)
+- `traceparent = eventTraceparent || (await getTraceparent())` - get a traceparent from the event (or fallback to a traceparent from a BioT service)
 
 - `configureLogger` - creating new logs format that follows the structure required for dataDog logs (including a traceId). Environment variable BIOT_SHOULD_VALIDATE_JWT should be false if the lambda does not receive a token, otherwise authentication will fail the lambda
 

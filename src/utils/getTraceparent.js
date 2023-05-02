@@ -7,7 +7,7 @@ import { BIOT_BASE_URL } from "../constants.js";
 
 const API_TO_GET_TRACE_ID_FROM = `${BIOT_BASE_URL}/ums/system/healthCheck`;
 
-export const getTraceId = async () => {
+export const getTraceparent = async () => {
   // This tries to get the response from an existing BioT service (using it's healthCheck)
   let resTraceId;
   try {

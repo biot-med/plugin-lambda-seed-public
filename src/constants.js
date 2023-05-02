@@ -4,7 +4,7 @@ const constants = {
   NO_EVENT_ERROR: "NO_EVENT",
   NO_METADATA_ERROR: "NO_METADATA",
   NO_DATA_ERROR: "NO_DATA",
-  TRACE_ID_KEY: "trace-id",
+  TRACEPARENT_KEY: "traceparent",
 };
 
 
@@ -47,7 +47,7 @@ const {
   NO_EVENT_ERROR,
   NO_METADATA_ERROR,
   NO_DATA_ERROR,
-  TRACE_ID_KEY,
+  TRACEPARENT_KEY,
 } = constants;
 
 const {
@@ -83,5 +83,5 @@ export {
   AWS_EXECUTION_ENV,
   BIOT_SHOULD_VALIDATE_JWT,
   BIOT_SERVICE_ENVIRONMENT,
-  TRACE_ID_KEY
+  TRACEPARENT_KEY
 };

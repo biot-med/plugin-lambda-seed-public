@@ -1,6 +1,6 @@
 import { genericSuccessResponse } from "../utils/index.js";
 
-export const perform = async (data, token = null, traceId) => {
+export const perform = async (data, token = null, traceparent) => {
   // -----------------------------------------------------------------------------------------
 
   // TODO: ADD YOUR CODE HERE !
@@ -9,7 +9,7 @@ export const perform = async (data, token = null, traceId) => {
   console.info("Some action was performed!");
 
   // Return your response here (replace genericSuccessResponse with your response)
-  return genericSuccessResponse(traceId);
+  return genericSuccessResponse(traceparent);
 
   // -----------------------------------------------------------------------------------------
 };

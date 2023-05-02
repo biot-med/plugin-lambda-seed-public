@@ -4,14 +4,14 @@ import {
   NO_EVENT_ERROR,
   NO_METADATA_ERROR,
   NO_DATA_ERROR,
-  TRACE_ID_KEY,
+  TRACEPARENT_KEY,
 } from "../constants.js";
 
 const errors = {
   [API_CALL_ERROR]: (error, traceId) => ({
     statusCode: 500,
     headers: {
-      [TRACE_ID_KEY]: traceId,
+      [TRACEPARENT_KEY]: traceId,
     },
     body: JSON.stringify({
       code: API_CALL_ERROR,
@@ -27,7 +27,7 @@ const errors = {
   [JWT_ERROR]: (error, traceId) => ({
     statusCode: 400,
     headers: {
-      [TRACE_ID_KEY]: traceId,
+      [TRACEPARENT_KEY]: traceId,
     },
     body: JSON.stringify({
       code: JWT_ERROR,
@@ -43,7 +43,7 @@ const errors = {
   [NO_EVENT_ERROR]: (error, traceId) => ({
     statusCode: 400,
     headers: {
-      [TRACE_ID_KEY]: traceId,
+      [TRACEPARENT_KEY]: traceId,
     },
     body: JSON.stringify({
       code: NO_EVENT_ERROR,
@@ -54,7 +54,7 @@ const errors = {
   [NO_METADATA_ERROR]: (error, traceId) => ({
     statusCode: 400,
     headers: {
-      [TRACE_ID_KEY]: traceId,
+      [TRACEPARENT_KEY]: traceId,
     },
     body: JSON.stringify({
       code: NO_METADATA_ERROR,
@@ -65,7 +65,7 @@ const errors = {
   [NO_DATA_ERROR]: (error, traceId) => ({
     statusCode: 400,
     headers: {
-      [TRACE_ID_KEY]: traceId,
+      [TRACEPARENT_KEY]: traceId,
     },
     body: JSON.stringify({
       code: NO_DATA_ERROR,
@@ -76,7 +76,7 @@ const errors = {
   internalServerError: (error, traceId) => ({
     statusCode: 500,
     headers: {
-      [TRACE_ID_KEY]: traceId,
+      [TRACEPARENT_KEY]: traceId,
     },
     body: JSON.stringify({
       message: "internal server error",

@@ -1,8 +1,8 @@
-import { TRACE_ID_KEY } from "../constants.js";
+import { TRACEPARENT_KEY } from "../constants.js";
 
-export const genericSuccessResponse = (traceId) => ({
+export const genericSuccessResponse = (traceparent) => ({
   statusCode: 200,
   headers: {
-    [TRACE_ID_KEY]: traceId,
+    [TRACEPARENT_KEY]: traceparent,
   },
 });
