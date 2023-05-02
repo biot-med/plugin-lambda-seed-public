@@ -1,22 +1,16 @@
-import axios from "axios";
-import { BIOT_BASE_URL } from "../constants.js";
+import crypto from 'crypto';
 
-// This is a fallback to get a traceId for this lambdas uses only.
-// If it does not exist, it fallbacks to get a traceId from an existing BioT API using it's healthCheck API
+// This is a fallback incase there was no traceparent.
+// If it does not exist, it creates a traceparent as a fallback.
 // The lambdas creator should implement the creation/fetching of a traceId
 
-const API_TO_GET_TRACE_ID_FROM = `${BIOT_BASE_URL}/ums/system/healthCheck`;
+export const getTraceparent = () => {
+  const version = Buffer.alloc(1).toString('hex');
+  const traceId = crypto.randomBytes(16).toString('hex');
+  const id = crypto.randomBytes(8).toString('hex');
+  const flags = '01';
 
-export const getTraceparent = async () => {
-  // This tries to get the response from an existing BioT service (using it's healthCheck)
-  let resTraceId;
-  try {
-    const response = await axios.get(API_TO_GET_TRACE_ID_FROM);
-    resTraceId = response.data.traceId;
-  } catch (error) {
-    console.error("Error getting new trace id, setting to default");
-  } finally {
-    return resTraceId ?? "traceId_Missing";
-  }
-};
+  return `${version}-${traceId}-${id}-${flags}`;
+}
+
   
