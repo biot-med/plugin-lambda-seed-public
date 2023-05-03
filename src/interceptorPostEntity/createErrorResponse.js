@@ -7,7 +7,7 @@ import {
   BIOT_APP_NAME,
 } from "../constants.js";
 
-import { parseTraceparentString } from "../utils";
+import { parseTraceparentString } from "../utils/index.js";
 
 const envFallback = "Not specified";
 

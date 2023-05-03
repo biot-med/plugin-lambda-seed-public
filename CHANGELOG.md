@@ -1,3 +1,11 @@
+# Version 3.0.0
+
+**Release Date** 03 MAY 23
+
+## Breaking changes
+
+- Changed 'trace-id' header to 'traceparent' in w3c format.
+
 # Version 2.0.1
 
 **Release Date** 19 APR 23

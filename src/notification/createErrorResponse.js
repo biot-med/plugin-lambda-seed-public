@@ -7,7 +7,7 @@ import {
   TRACEPARENT_KEY,
 } from "../constants.js";
 
-import { parseTraceparentString } from "../utils";
+import { parseTraceparentString } from "../utils/index.js";
 
 const errors = {
   [API_CALL_ERROR]: (error, traceparent, traceId) => ({

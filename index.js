@@ -71,6 +71,6 @@ export const handler = async (event) => {
   } catch (error) {
     // This should return the proper error responses by the type of error that occurred
     // See the createErrorResponse function for your specific lambda usage
-    return createErrorResponse(error, traceparent, TraceParent.fromString(traceparent).traceId);
+    return createErrorResponse(error, traceparent);
   }
 };

@@ -1,5 +1,5 @@
 import { BIOT_APP_NAME } from "../constants.js";
-import { parseTraceparentString } from "../utils";
+import { parseTraceparentString } from "../utils/index.js";
 
 let logOptions = [
   { function: "debug", level: "DEBUG", level_value: 10000 },
