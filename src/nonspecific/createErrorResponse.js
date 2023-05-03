@@ -7,6 +7,8 @@ import {
   TRACEPARENT_KEY,
 } from "../constants.js";
 
+import { parseTraceparentString } from "../utils";
+
 const errors = {
   [API_CALL_ERROR]: (error, traceparent, traceId) => ({
     statusCode: 500,
@@ -74,8 +76,10 @@ const errors = {
   }),
 };
 
-export const createErrorResponse = (error, traceparent, traceId) => {
+export const createErrorResponse = (error, traceparent) => {
   console.error("Got error: ", error);
+  
+  const traceId = parseTraceparentString(traceparent);
   return (
     (error && errors[error?.message]?.(error, traceparent, traceId)) ||
     errors.internalServerError(error, traceId)

@@ -1,5 +1,4 @@
-import TraceParent from "traceparent";
-import { getTraceparent, configureLogger, checkRequestType } from "./src/index.js";
+import { createTraceparent, configureLogger, checkRequestType } from "./src/index.js";
 
 import { BIOT_SHOULD_VALIDATE_JWT } from "./src/index.js";
 
@@ -42,20 +41,19 @@ export const handler = async (event) => {
 
     // We extract the traceparent from the event
     // As a fallback, if the traceparent is not included, we get a new traceparent from a open BioT AIP service
-    traceparent = eventTraceparent ??  getTraceparent();
+    traceparent = eventTraceparent ??  createTraceparent();
 
     // The lambda might be reinvoked several times for several consecutive requests
     // This makes sure these commands are only run in the first invocation
     if (isFirstRun) {
       // Here we are creating new logs format that follows the structure required for dataDog logs (including a traceId)
-      const traceId = TraceParent.fromString(traceparent).traceId;
-      configureLogger(traceId);
+      configureLogger(traceparent);
       isFirstRun = false;
     }
 
     // This is the authentication process for the lambda itself
     // Note: environment variable BIOT_SHOULD_VALIDATE_JWT should be false if the lambda does not receive a token, otherwise authentication will fail the lambda
-    if (BIOT_SHOULD_VALIDATE_JWT === true) await authenticate(eventToken, traceparent);
+    if (BIOT_SHOULD_VALIDATE_JWT === true) await authenticate(eventToken);
 
     // Here we are requesting a token for the lambda
     // It is done using a service users BIOT_SERVICE_USER_ID and BIOT_SERVICE_USER_SECRET_KEY that should be set to an environment variable

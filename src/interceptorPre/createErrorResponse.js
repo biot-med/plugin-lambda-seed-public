@@ -7,6 +7,8 @@ import {
   BIOT_APP_NAME,
 } from "../constants.js";
 
+import { parseTraceparentString } from "../utils";
+
 const envFallback = "Not specified";
 
 const errors = {
@@ -75,8 +77,10 @@ const errors = {
   }),
 };
 
-export const createErrorResponse = (error, traceparent, traceId) => {
+export const createErrorResponse = (error, traceparent) => {
   console.error("Got error: ", error);
+
+  const traceId = parseTraceparentString(traceparent);
   return (
     (error && errors[error?.message]?.(error, traceId)) ||
     errors.internalServerError(error, traceId)

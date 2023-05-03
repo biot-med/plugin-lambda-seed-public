@@ -7,10 +7,12 @@ import {
   BIOT_APP_NAME,
 } from "../constants.js";
 
+import { parseTraceparentString } from "../utils";
+
 const envFallback = "Not specified";
 
 const errors = {
-  [API_CALL_ERROR]: (error, traceparent, traceId) => ({
+  [API_CALL_ERROR]: (error, traceId) => ({
     statusCode: 500,
     body: {
       code: API_CALL_ERROR,
@@ -75,10 +77,12 @@ const errors = {
   }),
 };
 
-export const createErrorResponse = (error, traceparent, traceId) => {
+export const createErrorResponse = (error, traceparent) => {
   console.error("Got error: ", error);
+
+  const traceId = parseTraceparentString(traceparent);
   return (
-    (error && errors[error?.message]?.(error, traceparent, traceId)) ||
+    (error && errors[error?.message]?.(error, traceId)) ||
     errors.internalServerError(error, traceId)
   );
 };

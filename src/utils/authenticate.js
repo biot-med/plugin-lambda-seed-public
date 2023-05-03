@@ -10,7 +10,7 @@ import {
   TRACEPARENT_KEY,
 } from "../constants.js";
 
-export const authenticate = async (token, traceparent) => {
+export const authenticate = async (token) => {
   try {
     // This validates the token sent by the notification service
     const jwtData = await JWT.verify(token, BIOT_PUBLIC_KEY, {
