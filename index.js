@@ -42,14 +42,14 @@ export const handler = async (event) => {
 
     // We extract the traceparent from the event
     // As a fallback, if the traceparent is not included, we get a new traceparent from a open BioT AIP service
-    traceparent = eventTraceparent ?? (await getTraceparent());
+    traceparent = eventTraceparent ??  getTraceparent();
 
     // The lambda might be reinvoked several times for several consecutive requests
     // This makes sure these commands are only run in the first invocation
     if (isFirstRun) {
       // Here we are creating new logs format that follows the structure required for dataDog logs (including a traceId)
       const traceId = TraceParent.fromString(traceparent).traceId;
-      await configureLogger(traceId);
+      configureLogger(traceId);
       isFirstRun = false;
     }
 
