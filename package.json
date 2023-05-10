@@ -1,7 +1,7 @@
 {
   "name": "plugin-lambda-seed-public",
   "type": "module",
-  "version": "3.0.0",
+  "version": "3.0.0.1",
   "description": "Node.js AWS lambda seed for biot",
   "main": "index.js",
   "scripts": {
