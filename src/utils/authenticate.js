@@ -16,10 +16,21 @@ export const authenticate = async (token) => {
     const jwtData = await JWT.verify(token, BIOT_PUBLIC_KEY, {
       algorithms: ["RS512"],
     });
-    // This checks the token's permission
+    
+    // This checks the token's permissions
 
-    if (BIOT_JWT_PERMISSION) {
-      if (!jwtData.scopes?.includes(BIOT_JWT_PERMISSION)) {
+    if (Array.isArray(BIOT_JWT_PERMISSION) && BIOT_JWT_PERMISSION.length) {
+      
+      // If the token does not have one of the permissions listed in BIOT_JWT_PERMISSION then throw an error
+      // BIOT_JWT_PERMISSION is an array of strings set in the lambdas environment variables (see src\constants.js)
+      let permissionsExist = false;
+      jwtData.scopes?.forEach(permission => { 
+        if (BIOT_JWT_PERMISSION.includes(permission)) {
+          permissionsExist = true;
+        }
+      });
+        
+      if (!permissionsExist) {
         throw new Error(
           `JWT does not have the required permissions. Missing: ${BIOT_JWT_PERMISSION}`
         );
