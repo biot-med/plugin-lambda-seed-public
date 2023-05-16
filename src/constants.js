@@ -10,7 +10,6 @@ const constants = {
 
 const cloudConstants = {
   BIOT_PUBLIC_KEY: process.env.BIOT_PUBLIC_KEY,
-  // This is an array of strings set in the lambdas environment variables, the permissions are checked in src\utils\authenticate.js
   BIOT_APP_NAME: process.env.BIOT_APP_NAME,
   BIOT_BASE_URL: process.env.BIOT_BASE_URL,
   BIOT_SERVICE_USER_ID: process.env.BIOT_SERVICE_USER_ID,
