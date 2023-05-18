@@ -11,8 +11,9 @@ export const authenticate = async (token) => {
 
     // This validates the token sent by the notification service and checks the required permission
     checkJWT(token, requiredPermission);
- 
-  } catch (error) {
+    
+    return;
+   } catch (error) {
     throw new Error(JWT_ERROR, { cause: error });
   }
 };

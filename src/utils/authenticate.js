@@ -19,7 +19,7 @@ export const authenticate = async (token) => {
      * You can define it in your plugin's environment variables, see constants.js
      * */
      checkJWT(token, JWT_PERMISSION);
-
+    return;
   } catch (error) {
     throw new Error(JWT_ERROR, { cause: error });
   }
@@ -29,7 +29,6 @@ export const login = async (traceparent) => {
   if (!BIOT_BASE_URL) throw new Error("No BIOT_BASE_URL");
   if (!BIOT_SERVICE_USER_ID) throw new Error("No BIOT_SERVICE_USER_ID");
   if (!BIOT_SERVICE_USER_SECRET_KEY) throw new Error("No BIOT_SERVICE_USER_SECRET_KEY");
-
   const url = `${BIOT_BASE_URL}/ums/v2/services/accessToken`;
   const response = await axios.post(
     url,
@@ -43,7 +42,6 @@ export const login = async (traceparent) => {
       },
     }
   );
-
   return response.data.accessToken;
 };
 
@@ -65,4 +63,5 @@ export const checkJWT = async (token, requiredPermission) => {
       `JWT does not have the required permissions. Missing: ${requiredPermission}`
     );
   }
+  return;
 }
