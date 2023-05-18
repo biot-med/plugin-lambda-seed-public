@@ -27,5 +27,5 @@ export const perform = async (data, token, traceparent) => {
 
   // ----------------------------------------------------------------------------------
 
-  return changedData.body.response;
+  return changedData.body;
 };

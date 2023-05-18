@@ -37,12 +37,12 @@ export const handler = async (event) => {
     // Note: Some of these properties might not be relevant for certain cases, you can remove them if they are not relevant
     //       For example, metadata does not exist in interceptors' events.
     const { data, eventToken, eventTraceparent, metadata } =
-      extractDataFromEvent(event);
+    extractDataFromEvent(event);
 
     // We extract the traceparent from the event
     // As a fallback, if the traceparent is not included, we get a new traceparent from a open BioT AIP service
     traceparent = eventTraceparent ??  createTraceparent();
-
+    
     // The lambda might be reinvoked several times for several consecutive requests
     // This makes sure these commands are only run in the first invocation
     if (isFirstRun) {
