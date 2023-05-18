@@ -9,7 +9,7 @@ import {
   TRACEPARENT_KEY,
 } from "../constants.js";
 
-export const authenticate = async (token, traceId) => {
+export const authenticate = async (token) => {
   try {
      
     /** 
@@ -25,7 +25,7 @@ export const authenticate = async (token, traceId) => {
   }
 };
 
-export const login = async (traceId) => {
+export const login = async (traceparent) => {
   if (!BIOT_BASE_URL) throw new Error("No BIOT_BASE_URL");
   if (!BIOT_SERVICE_USER_ID) throw new Error("No BIOT_SERVICE_USER_ID");
   if (!BIOT_SERVICE_USER_SECRET_KEY) throw new Error("No BIOT_SERVICE_USER_SECRET_KEY");
@@ -39,7 +39,7 @@ export const login = async (traceId) => {
     },
     {
       headers: {
-        [TRACEPARENT_KEY]: traceId,
+        [TRACEPARENT_KEY]: traceparent,
       },
     }
   );
