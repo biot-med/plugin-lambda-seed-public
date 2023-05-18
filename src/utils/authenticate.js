@@ -6,27 +6,19 @@ import {
   BIOT_BASE_URL,
   BIOT_SERVICE_USER_ID,
   BIOT_SERVICE_USER_SECRET_KEY,
-  TRACE_ID_KEY,
+  TRACEPARENT_KEY,
 } from "../constants.js";
 
 export const authenticate = async (token, traceId) => {
   try {
-    // This validates the token sent by the notification service
-    const jwtData = await JWT.verify(token, BIOT_PUBLIC_KEY, {
-      algorithms: ["RS512"],
-    });
-    
-    // TODO: You can check the token's permissions here
-    // You can define the permissions in env variables and use them in the plugin's constants.js file then import them here, 
-    // Example:
-    //  if (SOME_PLUGIN_JWT_PERMISSION) {
-    //    if (!jwtData.scopes?.includes(SOME_PLUGIN_JWT_PERMISSION)) {
-    //      throw new Error(
-    //        `JWT does not have the required permissions. Missing: ${SOME_PLUGIN_JWT_PERMISSION}`
-    //      );
-    //    }
-    //  }
-
+     
+    /** 
+     * This validates the token sent by the notification service and checks the required permission
+     * 
+     * This implementation checks JWT_PERMISSION from constants.js.
+     * You can define it in your plugin's environment variables, see constants.js
+     * */
+     checkJWT(token, JWT_PERMISSION);
 
   } catch (error) {
     throw new Error(JWT_ERROR, { cause: error });
@@ -47,10 +39,30 @@ export const login = async (traceId) => {
     },
     {
       headers: {
-        [TRACE_ID_KEY]: traceId,
+        [TRACEPARENT_KEY]: traceId,
       },
     }
   );
 
   return response.data.accessToken;
 };
+
+
+
+export const checkJWT = async (token, requiredPermission) => {
+  // This validates the token sent by the notification service
+  const jwtData = await JWT.verify(token, BIOT_PUBLIC_KEY, {
+    algorithms: ["RS512"],
+  });
+  
+  if (!requiredPermission) return;
+
+  // TODO: If you need to, update this function to add other permissions to be checked in the JWT
+      
+  // Checks the required permission in the token
+  if (!jwtData.scopes?.includes(requiredPermission)) {
+    throw new Error(
+      `JWT does not have the required permissions. Missing: ${requiredPermission}`
+    );
+  }
+}

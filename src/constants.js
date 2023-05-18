@@ -26,13 +26,13 @@ const cloudConstants = {
     interceptorPost: process.env.BIOT_JWT_PERMISSION_INTERCEPTION,
     interceptorPre: process.env.BIOT_JWT_PERMISSION_INTERCEPTION,
     interceptorPostEntity: process.env.BIOT_JWT_PERMISSION_INTERCEPTION,
-  }
+  },
+  JWT_PERMISSION: process.env.JWT_PERMISSION,
 };
 
 const localDevConstants = {
   BIOT_PUBLIC_KEY:
     "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAu8kO8u5hNmkvZnGWaTjWvHGvHDnz+5WkfBImOB3aQCDcGZ/schJNVF0ANRrA8lXwWXOdYC0cVkElVEaAy1wHcqhCKhp6qCTWo19eMIAAnILSwcDWtaLPyDIMDOQJqts24c76ODJV8qJ2zC/zKSrBMt9lSuwP2ms8ZzgQ0UQzpWd950xf5f/pxsRhaxboQtBWhUmzEstHB1bHiaElFgM3ct0shDZ8I9QplxtAQQrzZ8gFaaVZcT0oi1h8BMU9wdPS4+KDisQ4ai2Bka7bxGNuhC9U8/gyidNZbDrO7emlOWKxLB8CCeYRb+bl+x1nm+jfNRzXZdOk/nXyRtAZfCRbGQIDAQAB",
-    BIOT_JWT_PERMISSIONS: null,
   BIOT_APP_NAME: "BioT Lambda seed",
   BIOT_BASE_URL: null,
   BIOT_SERVICE_USER_ID: null,
@@ -45,7 +45,8 @@ const localDevConstants = {
     interceptorPost: "PLUGIN_INTERCEPTOR",
     interceptorPre: "PLUGIN_INTERCEPTOR",
     interceptorPostEntity: "PLUGIN_INTERCEPTOR",
-  }
+  },
+  JWT_PERMISSION: null,
 };
 
 const environmentConstants = process.env.AWS_EXECUTION_ENV
@@ -62,7 +63,7 @@ const {
 } = constants;
 
 const {
-  BIOT_JWT_PERMISSIONS,
+  JWT_PERMISSION,
   BIOT_APP_NAME,
   BIOT_BASE_URL,
   BIOT_SERVICE_USER_ID,
@@ -82,7 +83,7 @@ const BIOT_PUBLIC_KEY = [
 
 export {
   BIOT_PUBLIC_KEY,
-  BIOT_JWT_PERMISSIONS,
+  JWT_PERMISSION,
   BIOT_APP_NAME,
   BIOT_BASE_URL,
   BIOT_SERVICE_USER_ID,

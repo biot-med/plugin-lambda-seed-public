@@ -1,5 +1,5 @@
 import { login } from "../utils/index.js";
-import { authenticate } from "./authenticate";
+import { authenticate } from "./authenticate.js";
 import { extractDataFromEvent } from "./extractDataFromEvent.js";
 import { createErrorResponse } from "./createErrorResponse.js";
 import { perform } from "./perform.js";

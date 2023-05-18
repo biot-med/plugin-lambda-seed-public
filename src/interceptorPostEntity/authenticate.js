@@ -1,24 +1,16 @@
-import JWT from "jsonwebtoken";
 import {
-  BIOT_PUBLIC_KEY,
   JWT_ERROR,
   HOOKTYPE_PERMISSIONS,
 } from "../constants.js";
+import { checkJWT } from "../utils/authenticate.js";
 
 export const authenticate = async (token) => {
   try {
-    // This validates the token sent by the notification service
-    const jwtData = await JWT.verify(token, BIOT_PUBLIC_KEY, {
-      algorithms: ["RS512"],
-    });
     
     const requiredPermission = HOOKTYPE_PERMISSIONS.interceptorPostEntity;
 
-    if (!jwtData.scopes?.includes(requiredPermission)) {
-      throw new Error(
-        `JWT does not have the required permissions. Missing: ${requiredPermission}`
-      );
-    }
+    // This validates the token sent by the notification service and checks the required permission
+    checkJWT(token, requiredPermission);
 
   } catch (error) {
     throw new Error(JWT_ERROR, { cause: error });
