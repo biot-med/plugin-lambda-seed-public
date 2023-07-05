@@ -1,6 +1,6 @@
 # README
 
-# Biot's general lambda seed.
+# BioT's general lambda seed.
 
 _This is a basic template for lambda to be used as a starting point for AWS lambdas extending BioT's services._
 
