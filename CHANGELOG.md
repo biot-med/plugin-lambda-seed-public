@@ -1,10 +1,3 @@
-# Version 3.0.2
-
-**Release Date** 05 JUL 23
-
-## Breaking changes
-
-- Update comments and readme 
 # Version 3.0.0
 
 **Release Date** 03 MAY 23
