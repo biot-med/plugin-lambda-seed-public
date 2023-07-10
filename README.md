@@ -33,9 +33,9 @@ For the lambda to work as is, the hooktype property must be specified in the hea
 
 - `extractDataFromEvent` - extract the data, metadata, traceparent and token from the lambda's event (this is diffract for each hook type).
 
-- `traceparent = eventTraceparent || (await getTraceparent())` - get a traceparent from the event (or fallback to a traceparent from a BioT service)
+- `traceparent = eventTraceparent ??  createTraceparent();` - get a traceparent from the event (or fallback to a created traceparent)
 
-- `configureLogger` - creating new logs format that follows the structure required for dataDog logs (including a traceId). Environment variable BIOT_SHOULD_VALIDATE_JWT should be false if the lambda does not receive a token, otherwise authentication will fail the lambda
+- `configureLogger` - creating new logs format that follows the structure required for dataDog logs (including a traceparent). Environment variable BIOT_SHOULD_VALIDATE_JWT should be false if the lambda does not receive a token, otherwise authentication will fail the lambda
 
 - `authenticate` - authenticate the token sent by the notification service.
 

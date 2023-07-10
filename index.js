@@ -40,7 +40,7 @@ export const handler = async (event) => {
     extractDataFromEvent(event);
 
     // We extract the traceparent from the event
-    // As a fallback, if the traceparent is not included, we get a new traceparent from a open BioT AIP service
+    // If the traceparent is not included, we create a new one
     traceparent = eventTraceparent ??  createTraceparent();
     
     // The lambda might be reinvoked several times for several consecutive requests
