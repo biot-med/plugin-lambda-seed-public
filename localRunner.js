@@ -3,5 +3,5 @@ import { handler } from './index.js';
 import mockEvent from './mockEvent.js';
 
 console.log('-------- running locally --------');
-handler(mockEvent);
+await handler(mockEvent);
 console.log('------------ finish! ------------');
