@@ -1,3 +1,10 @@
+# Version 3.0.2
+
+**Release Date** 20 Jul 23
+
+## Bug Fix
+
+- localRunner - added await before calling handler function
 # Version 3.0.0
 
 **Release Date** 03 MAY 23
