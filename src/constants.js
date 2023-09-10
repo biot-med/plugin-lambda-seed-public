@@ -5,6 +5,7 @@ const constants = {
   NO_METADATA_ERROR: "NO_METADATA",
   NO_DATA_ERROR: "NO_DATA",
   TRACEPARENT_KEY: "traceparent",
+  GET_PUBLIC_KEY_API_URL: "/ums/v1/security/public-key",
 };
 
 
@@ -57,6 +58,7 @@ const {
   NO_METADATA_ERROR,
   NO_DATA_ERROR,
   TRACEPARENT_KEY,
+  GET_PUBLIC_KEY_API_URL,
 } = constants;
 
 const {
@@ -86,5 +88,6 @@ export {
   BIOT_SHOULD_VALIDATE_JWT,
   BIOT_SERVICE_ENVIRONMENT,
   TRACEPARENT_KEY,
-  HOOKTYPE_PERMISSIONS
+  HOOKTYPE_PERMISSIONS,
+  GET_PUBLIC_KEY_API_URL,
 };
