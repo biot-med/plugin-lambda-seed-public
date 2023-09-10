@@ -1,3 +1,11 @@
+# Version 3.0.3
+
+**Release Date** 10 SEP 23
+
+## Changes
+
+- Changed get public key from new api GET /v1/security/public-key
+
 # Version 3.0.2
 
 **Release Date** 20 Jul 23
