@@ -9,7 +9,6 @@ const constants = {
 
 
 const cloudConstants = {
-  BIOT_PUBLIC_KEY: process.env.BIOT_PUBLIC_KEY,
   BIOT_APP_NAME: process.env.BIOT_APP_NAME,
   BIOT_BASE_URL: process.env.BIOT_BASE_URL,
   BIOT_SERVICE_USER_ID: process.env.BIOT_SERVICE_USER_ID,
@@ -31,15 +30,13 @@ const cloudConstants = {
 };
 
 const localDevConstants = {
-  BIOT_PUBLIC_KEY:
-    "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAu8kO8u5hNmkvZnGWaTjWvHGvHDnz+5WkfBImOB3aQCDcGZ/schJNVF0ANRrA8lXwWXOdYC0cVkElVEaAy1wHcqhCKhp6qCTWo19eMIAAnILSwcDWtaLPyDIMDOQJqts24c76ODJV8qJ2zC/zKSrBMt9lSuwP2ms8ZzgQ0UQzpWd950xf5f/pxsRhaxboQtBWhUmzEstHB1bHiaElFgM3ct0shDZ8I9QplxtAQQrzZ8gFaaVZcT0oi1h8BMU9wdPS4+KDisQ4ai2Bka7bxGNuhC9U8/gyidNZbDrO7emlOWKxLB8CCeYRb+bl+x1nm+jfNRzXZdOk/nXyRtAZfCRbGQIDAQAB",
   BIOT_APP_NAME: "BioT Lambda seed",
   BIOT_BASE_URL: null,
   BIOT_SERVICE_USER_ID: null,
   BIOT_SERVICE_USER_SECRET_KEY: null,
   AWS_EXECUTION_ENV: "DEV",
   BIOT_SHOULD_VALIDATE_JWT: true,
-  BIOT_SERVICE_ENVIRONMENT: "gen2int",
+  BIOT_SERVICE_ENVIRONMENT: "int",
   HOOKTYPE_PERMISSIONS: {
     notification: "ACTION_NOTIFICATION",
     interceptorPost: "PLUGIN_INTERCEPTOR",
@@ -74,15 +71,7 @@ const {
   HOOKTYPE_PERMISSIONS,
 } = environmentConstants;
 
-// This prepares the BIOT_PUBLIC_KEY to be used with jsonwebtoken's parse (in authenticate function)
-const BIOT_PUBLIC_KEY = [
-  "-----BEGIN PUBLIC KEY-----",
-  environmentConstants.BIOT_PUBLIC_KEY,
-  "-----END PUBLIC KEY-----",
-].join("\n");
-
 export {
-  BIOT_PUBLIC_KEY,
   JWT_PERMISSION,
   BIOT_APP_NAME,
   BIOT_BASE_URL,
