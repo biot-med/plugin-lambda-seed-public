@@ -6,7 +6,7 @@ export const perform = async (data, token = null, traceparent) => {
   // TODO: ADD YOUR CODE HERE !
   // Remove this example call and add your code instead
 
-  console.info("Some action was performed!");
+  console.info("Some Nonspecific action was performed!");
 
   // Return your response here (replace genericSuccessResponse with your response)
   return genericSuccessResponse(traceparent);
