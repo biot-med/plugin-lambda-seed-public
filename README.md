@@ -72,7 +72,7 @@ For the lambda to work as is, the hooktype property must be specified in the hea
 
 _Read the comments and todos specified in the code to further understand the functions and flow._
 
-make sure you run npm i
+_make sure you run npm i_
 
 ### Pack
 
