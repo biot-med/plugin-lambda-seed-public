@@ -9,6 +9,54 @@ import {
   GET_PUBLIC_KEY_API_URL,
 } from "../constants.js";
 
+let publicKey = null;
+
+// This prepares the publicKey to be used with jsonwebtoken's parse (in checkJWT function)
+const constructPublicKey = (publicKey) => {
+  return [
+    "-----BEGIN PUBLIC KEY-----",
+    publicKey,
+    "-----END PUBLIC KEY-----",
+  ].join("\n");
+}
+
+export const getPublicKey = async () => {
+  
+  const response = await axios.get(
+    `${BIOT_BASE_URL}${GET_PUBLIC_KEY_API_URL}`
+  );
+  
+  const { publicKey } = response?.data;
+
+  return publicKey;
+}
+
+export const checkJWT = async (token, requiredPermission) => {
+
+
+  if(!publicKey) {
+    const responsePublicKey = await getPublicKey();
+    publicKey = constructPublicKey(responsePublicKey);
+  }
+
+  // This validates the token sent by the notification service
+  const jwtData = await JWT.verify(token, publicKey, {
+    algorithms: ["RS512"],
+  });
+  
+  if (!requiredPermission) return;
+
+  // TODO: If you need to, update this function to add other permissions to be checked in the JWT
+      
+  // Checks the required permission in the token
+  if (!jwtData.scopes?.includes(requiredPermission)) {
+    throw new Error(
+      `JWT does not have the required permissions. Missing: ${requiredPermission}`
+    );
+  }
+  return;
+}
+
 export const authenticate = async (token) => {
   try {
     /** 
@@ -44,50 +92,3 @@ export const login = async (traceparent) => {
   );
   return response.data.accessToken;
 };
-
-
-// This prepares the publicKey to be used with jsonwebtoken's parse (in checkJWT function)
-const constructPublicKey = (publicKey) => {
-  return [
-    "-----BEGIN PUBLIC KEY-----",
-    publicKey,
-    "-----END PUBLIC KEY-----",
-  ].join("\n");
-}
-
-
-export const getPublicKey = async () => {
-  
-  const response = await axios.get(
-    `${BIOT_BASE_URL}${GET_PUBLIC_KEY_API_URL}`
-  );
-  
-  const { publicKey } = response?.data;
-
-  return publicKey;
-}
-
-export const checkJWT = async (token, requiredPermission) => {
-
-  const responsePublicKey = await getPublicKey();
-
-  const publicKey = constructPublicKey(responsePublicKey);
-
-  // This validates the token sent by the notification service
-  const jwtData = await JWT.verify(token, publicKey, {
-    algorithms: ["RS512"],
-  });
-  
-  if (!requiredPermission) return;
-
-  // TODO: If you need to, update this function to add other permissions to be checked in the JWT
-      
-  // Checks the required permission in the token
-  if (!jwtData.scopes?.includes(requiredPermission)) {
-    throw new Error(
-      `JWT does not have the required permissions. Missing: ${requiredPermission}`
-    );
-  }
-  return;
-}
-
