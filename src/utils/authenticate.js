@@ -67,7 +67,7 @@ export const authenticate = async (token) => {
      * You can define it in your plugin's environment variables, see constants.js
      * */
     
-    checkJWT(token, JWT_PERMISSION);
+    await checkJWT(token, JWT_PERMISSION);
     return;
   } catch (error) {
     throw new Error(JWT_ERROR, { cause: error });
