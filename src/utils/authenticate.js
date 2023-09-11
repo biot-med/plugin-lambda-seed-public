@@ -7,6 +7,7 @@ import {
   BIOT_SERVICE_USER_SECRET_KEY,
   TRACEPARENT_KEY,
   GET_PUBLIC_KEY_API_URL,
+  JWT_PERMISSION,
 } from "../constants.js";
 
 let publicKey = null;
