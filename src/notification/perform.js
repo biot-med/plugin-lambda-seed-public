@@ -14,7 +14,7 @@ export const perform = async (data, token, traceparent) => {
 
   // In this example you perform your logic with the response Here
 
-  console.info("got callExampleResponse ", callExampleResponse);
+  console.info("In Notification got callExampleResponse ", callExampleResponse);
 
   // -----------------------------------------------------------------------------------------
   return genericSuccessResponse(traceparent);
