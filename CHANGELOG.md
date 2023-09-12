@@ -1,3 +1,10 @@
+# Version 1.2.0
+
+**Release Date** 12 SEP 23
+## Changes
+
+- Changed get public key from new api GET /v1/security/public-key
+
 # Version 1.1.5
 
 **Released by**: Ori Roll **Release Date** 21 FEB 23

@@ -4,11 +4,11 @@ const constants = {
   NO_EVENT_ERROR: "NO_EVENT",
   NO_METADATA_ERROR: "NO_METADATA",
   NO_DATA_ERROR: "NO_DATA",
+  GET_PUBLIC_KEY_API_URL: "/ums/v1/security/public-key",
 };
 
 
 const cloudConstants = {
-  BIOT_PUBLIC_KEY: process.env.BIOT_PUBLIC_KEY,
   BIOT_JWT_PERMISSION: process.env.BIOT_JWT_PERMISSION_NOTIFICATION || process.env.BIOT_JWT_PERMISSION_INTERCEPTION,
   BIOT_APP_NAME: process.env.BIOT_APP_NAME,
   BIOT_BASE_URL: process.env.BIOT_BASE_URL,
@@ -24,16 +24,14 @@ const cloudConstants = {
 };
 
 const localDevConstants = {
-  BIOT_PUBLIC_KEY:
-    "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAu8kO8u5hNmkvZnGWaTjWvHGvHDnz+5WkfBImOB3aQCDcGZ/schJNVF0ANRrA8lXwWXOdYC0cVkElVEaAy1wHcqhCKhp6qCTWo19eMIAAnILSwcDWtaLPyDIMDOQJqts24c76ODJV8qJ2zC/zKSrBMt9lSuwP2ms8ZzgQ0UQzpWd950xf5f/pxsRhaxboQtBWhUmzEstHB1bHiaElFgM3ct0shDZ8I9QplxtAQQrzZ8gFaaVZcT0oi1h8BMU9wdPS4+KDisQ4ai2Bka7bxGNuhC9U8/gyidNZbDrO7emlOWKxLB8CCeYRb+bl+x1nm+jfNRzXZdOk/nXyRtAZfCRbGQIDAQAB",
-    BIOT_JWT_PERMISSION: null,
+  BIOT_JWT_PERMISSION: null,
   BIOT_APP_NAME: "BioT Lambda seed",
   BIOT_BASE_URL: null,
   BIOT_SERVICE_USER_ID: null,
   BIOT_SERVICE_USER_SECRET_KEY: null,
   AWS_EXECUTION_ENV: "DEV",
   BIOT_SHOULD_VALIDATE_JWT: true,
-  BIOT_SERVICE_ENVIRONMENT: "gen2int",
+  BIOT_SERVICE_ENVIRONMENT: "int",
 };
 
 const environmentConstants = process.env.AWS_EXECUTION_ENV
@@ -46,6 +44,7 @@ const {
   NO_EVENT_ERROR,
   NO_METADATA_ERROR,
   NO_DATA_ERROR,
+  GET_PUBLIC_KEY_API_URL,
 } = constants;
 
 const {
@@ -59,15 +58,7 @@ const {
   BIOT_SERVICE_ENVIRONMENT,
 } = environmentConstants;
 
-// This prepares the BIOT_PUBLIC_KEY to be used with jsonwebtoken's parse (in authenticate function)
-const BIOT_PUBLIC_KEY = [
-  "-----BEGIN PUBLIC KEY-----",
-  environmentConstants.BIOT_PUBLIC_KEY,
-  "-----END PUBLIC KEY-----",
-].join("\n");
-
 export {
-  BIOT_PUBLIC_KEY,
   BIOT_JWT_PERMISSION,
   BIOT_APP_NAME,
   BIOT_BASE_URL,
@@ -81,4 +72,5 @@ export {
   AWS_EXECUTION_ENV,
   BIOT_SHOULD_VALIDATE_JWT,
   BIOT_SERVICE_ENVIRONMENT,
+  GET_PUBLIC_KEY_API_URL,
 };
