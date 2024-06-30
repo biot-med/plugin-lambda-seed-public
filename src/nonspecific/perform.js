@@ -1,6 +1,6 @@
 import { genericSuccessResponse } from "../utils/index.js";
 
-export const perform = async (data, token = null, traceparent) => {
+export const perform = async (data, token = null, traceparent, metadata) => {
   // -----------------------------------------------------------------------------------------
 
   // TODO: ADD YOUR CODE HERE !

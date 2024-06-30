@@ -1,4 +1,8 @@
-import { createTraceparent, configureLogger, checkRequestType } from "./src/index.js";
+import {
+  createTraceparent,
+  configureLogger,
+  checkRequestType,
+} from "./src/index.js";
 
 import { BIOT_SHOULD_VALIDATE_JWT } from "./src/index.js";
 
@@ -14,7 +18,11 @@ let isFirstRun = true;
 export const handler = async (event) => {
   // The following two logs are just for debugging. You should remove them as soon as you can, the token should not be printed to logs.
   console.info("At Lambda start, got event: ", event);
-  console.info("At Lambda start, got body: ", JSON.parse(event.body));
+  if (event.body) {
+    console.info("At Lambda start, got body: ", JSON.parse(event.body));
+  } else {
+    console.log("At lambda start, got event with no body.");
+  }
 
   let traceparent = "traceparent-not-set";
 
@@ -24,6 +32,7 @@ export const handler = async (event) => {
   // Example: For interceptorPre, you can remove this and at the top of this file add:
   //          import { authenticate, login, extractDataFromEvent, perform, createErrorResponse } from "./src/interceptorPre/index.js"
   let requestType = checkRequestType(event);
+
   const {
     authenticate,
     login,
@@ -36,13 +45,11 @@ export const handler = async (event) => {
     // This extracts the data, metadata, token and traceparent from the event
     // Note: Some of these properties might not be relevant for certain cases, you can remove them if they are not relevant
     //       For example, metadata does not exist in interceptors' events.
-    const { data, eventToken, eventTraceparent, metadata } =
-    extractDataFromEvent(event);
+    const eventData = extractDataFromEvent(event);
 
     // We extract the traceparent from the event
     // If the traceparent is not included, we create a new one
-    traceparent = eventTraceparent ??  createTraceparent();
-    
+    traceparent = eventData.eventTraceparent ?? createTraceparent();
     // The lambda might be reinvoked several times for several consecutive requests
     // This makes sure these commands are only run in the first invocation
     if (isFirstRun) {
@@ -53,7 +60,8 @@ export const handler = async (event) => {
 
     // This is the authentication process for the lambda itself
     // Note: environment variable BIOT_SHOULD_VALIDATE_JWT should be false if the lambda does not receive a token, otherwise authentication will fail the lambda
-    if (BIOT_SHOULD_VALIDATE_JWT === true) await authenticate(eventToken);
+    if (BIOT_SHOULD_VALIDATE_JWT === true)
+      await authenticate(eventData.eventToken);
 
     // Here we are requesting a token for the lambda
     // It is done using a service users BIOT_SERVICE_USER_ID and BIOT_SERVICE_USER_SECRET_KEY that should be set to an environment variable
@@ -61,10 +69,10 @@ export const handler = async (event) => {
 
     // Some of the properties sent to perform might not be relevant, depending on the type of lambda or lambda hook used to invoke it
     const response = await perform(
-      data,
+      eventData.data || null,
       token || null,
       traceparent,
-      metadata || null
+      eventData.metadata || null
     );
 
     return response;

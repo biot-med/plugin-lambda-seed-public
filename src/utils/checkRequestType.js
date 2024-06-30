@@ -7,10 +7,16 @@ export const requestTypes = Object.freeze({
 });
 
 export const checkRequestType = (event) => {
-
+  let hooktypeKey;
   // This creates a case-insensitive search for the hooktype by first searching the key in the headers
-  const hooktypeKey = Object.keys(event?.headers)?.find(key => key.toLowerCase() === 'hooktype');
-  
+  if (event.headers) {
+    hooktypeKey = Object.keys(event?.headers)?.find(
+      (key) => key.toLowerCase() === "hooktype"
+    );
+  } else {
+    hooktypeKey = null;
+  }
+
   if (hooktypeKey && requestTypes[event.headers?.[hooktypeKey]]) {
     return requestTypes[event.headers?.[hooktypeKey]];
   } else {
