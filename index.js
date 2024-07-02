@@ -21,7 +21,7 @@ export const handler = async (event) => {
   if (event.body) {
     console.info("At Lambda start, got body: ", JSON.parse(event.body));
   } else {
-    console.log("At lambda start, got event with no body.");
+    console.info("At lambda start, got event with no body.");
   }
 
   let traceparent = "traceparent-not-set";
@@ -45,11 +45,11 @@ export const handler = async (event) => {
     // This extracts the data, metadata, token and traceparent from the event
     // Note: Some of these properties might not be relevant for certain cases, you can remove them if they are not relevant
     //       For example, metadata does not exist in interceptors' events.
-    const eventData = extractDataFromEvent(event);
+    const { data, eventToken, eventTraceparent, metadata } = extractDataFromEvent(event);
 
     // We extract the traceparent from the event
     // If the traceparent is not included, we create a new one
-    traceparent = eventData.eventTraceparent ?? createTraceparent();
+    traceparent = eventTraceparent ?? createTraceparent();
     // The lambda might be reinvoked several times for several consecutive requests
     // This makes sure these commands are only run in the first invocation
     if (isFirstRun) {
@@ -61,7 +61,7 @@ export const handler = async (event) => {
     // This is the authentication process for the lambda itself
     // Note: environment variable BIOT_SHOULD_VALIDATE_JWT should be false if the lambda does not receive a token, otherwise authentication will fail the lambda
     if (BIOT_SHOULD_VALIDATE_JWT === true)
-      await authenticate(eventData.eventToken);
+      await authenticate(eventToken);
 
     // Here we are requesting a token for the lambda
     // It is done using a service users BIOT_SERVICE_USER_ID and BIOT_SERVICE_USER_SECRET_KEY that should be set to an environment variable
@@ -69,10 +69,10 @@ export const handler = async (event) => {
 
     // Some of the properties sent to perform might not be relevant, depending on the type of lambda or lambda hook used to invoke it
     const response = await perform(
-      eventData.data || null,
+      data || null,
       token || null,
       traceparent,
-      eventData.metadata || null
+      metadata || null
     );
 
     return response;
