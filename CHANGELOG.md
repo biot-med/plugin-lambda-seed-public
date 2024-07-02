@@ -1,3 +1,12 @@
+# Version 3.1.1
+
+**Release Date** 30 June 24
+
+## Changes
+
+- Added support for events from scheduler
+
+
 # Version 3.1.0
 
 **Release Date** 10 SEP 23
