@@ -1,5 +1,5 @@
 import { genericSuccessResponse } from "../utils/index.js";
-import { callToAPIExample } from "../utils/callToAPIExample.js";
+import { searchOnlyFemalePatients } from "../services/biot/patient.js";
 
 export const perform = async (data, token, traceparent) => {
   // -----------------------------------------------------------------------------------------
@@ -10,7 +10,7 @@ export const perform = async (data, token, traceparent) => {
   // In this case we are making a get patients request to organization API
   // Remove this example call and add your code instead
 
-  const callExampleResponse = await callToAPIExample(token, traceparent);
+  const callExampleResponse = await searchOnlyFemalePatients(token, traceparent);
 
   // In this example you perform your logic with the response Here
 

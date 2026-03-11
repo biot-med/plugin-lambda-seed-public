@@ -1,12 +1,11 @@
-import { login } from "../utils/index.js";
-import { authenticate } from "./authenticate.js";
+import { authenticate,login } from "../services/auth/index.js";
 import { extractDataFromEvent } from "./extractDataFromEvent.js";
 import { createErrorResponse } from "./createErrorResponse.js";
 import { perform } from "./perform.js";
 
 const interceptorPostFunctions = {
-  authenticate: authenticate,
-  login: login,
+  authenticate,
+  login,
   createErrorResponse: createErrorResponse,
   extractDataFromEvent: extractDataFromEvent,
   perform: perform,

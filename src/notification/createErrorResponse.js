@@ -1,5 +1,4 @@
 import {
-  API_CALL_ERROR,
   JWT_ERROR,
   NO_EVENT_ERROR,
   NO_METADATA_ERROR,
@@ -7,25 +6,9 @@ import {
   TRACEPARENT_KEY,
 } from "../constants.js";
 
-import { parseTraceparentString } from "../utils/index.js";
+import { parseTraceparentString, isAxiosError, extractAxiosErrorInfo } from "../utils/index.js";
 
 const errors = {
-  [API_CALL_ERROR]: (error, traceparent, traceId) => ({
-    statusCode: 500,
-    headers: {
-      [TRACEPARENT_KEY]: traceparent,
-    },
-    body: JSON.stringify({
-      code: API_CALL_ERROR,
-      message: `Call to api failed${
-        error.cause?.message
-          ? `: "${JSON.stringify(error.cause?.message)}"`
-          : "."
-      }`,
-      traceId: traceId,
-      details: {},
-    }),
-  }),
   [JWT_ERROR]: (error, traceparent, traceId) => ({
     statusCode: 400,
     headers: {
@@ -81,6 +64,7 @@ const errors = {
       [TRACEPARENT_KEY]: traceparent,
     },
     body: JSON.stringify({
+      code: "INTERNAL_SERVER_ERROR",
       message: "internal server error",
       traceId: traceId,
     }),
@@ -91,8 +75,27 @@ export const createErrorResponse = (error, traceparent) => {
   console.error("Got error: ", error);
 
   const traceId = parseTraceparentString(traceparent);
-  return (
-    (error && errors[error?.message]?.(error, traceparent, traceId)) ||
-    errors.internalServerError(error, traceparent, traceId)
-  );
+
+  // Handle axios errors (server errors) - these should be thrown and then formatted here
+  if (isAxiosError(error)) {
+    const axiosErrorInfo = extractAxiosErrorInfo(error);
+    return {
+      statusCode: axiosErrorInfo.statusCode,
+      headers: {
+        [TRACEPARENT_KEY]: traceparent,
+      },
+      body: JSON.stringify({
+        ...axiosErrorInfo.responseData,
+        traceId: traceId,
+      }),
+    };
+  }
+
+  // Handle known error types
+  if (error && errors[error?.message]) {
+    return errors[error.message](error, traceparent, traceId);
+  }
+
+  // Default to internal server error
+  return errors.internalServerError(error, traceparent, traceId);
 };

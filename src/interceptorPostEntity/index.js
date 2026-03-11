@@ -1,5 +1,4 @@
-import { login } from "../utils/index.js";
-import { authenticate } from "./authenticate.js";
+import { login, authenticate } from "../services/auth/index.js";
 import { extractDataFromEvent } from "./extractDataFromEvent.js";
 import { createErrorResponse } from "./createErrorResponse.js";
 import { perform } from "./perform.js";

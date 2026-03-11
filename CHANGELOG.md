@@ -1,3 +1,49 @@
+# Version 3.3.1
+
+**Release Date** 20 Jan 2026
+
+## Changes
+
+- Replaced `jsonwebtoken` with `jose` for JWT verification in `src/services/auth/authenticate.js`
+- Security hardening and dependency updates (Snyk vulnerability fixes)
+
+# Version 3.3.0
+
+**Release Date** 24 Nov 2025
+
+## Changes
+
+- Added token caching to login function to reduce API calls
+
+# Version 3.2.0
+
+**Release Date** 30 June 24
+
+## Changes
+
+- Refactored authentication services - moved authentication logic to `src/services/auth/` folder
+  - Consolidated `authenticate` function from `src/utils/authenticate.js` to `src/services/auth/authenticate.js`
+  - Split `login` function into separate file `src/services/auth/login.js`
+  - Removed duplicate `authenticate.js` files from individual hook folders (interceptorPre, interceptorPost, interceptorPostEntity, notification)
+  - All hook types now import `authenticate` and `login` from centralized `src/services/auth/index.js`
+
+- Created new backend service layer - added `src/services/biot/` folder with reusable BioT API helpers
+  - Added `src/services/biot/base.js` with common CRUD operations: `search`, `get`, `create`, `update`, and `baseDelete`
+  - Added `src/services/biot/patient.js` with patient-specific API functions (`searchPatients`, `searchOnlyFemalePatients`) for usage example. 
+  - Replaced `callToAPIExample` utility with new service-based approach in all perform functions
+
+- Updated dependencies (Snyk vulnerability fixes)
+  - Upgraded `axios` from `0.27.2` to `^1.12.0`
+  - Upgraded `jsonwebtoken` from `8.5.1` to `^9.0.0`
+
+## Bug fixes
+- Improved error handling across all hook types
+  - Updated all `createErrorResponse.js` files to properly handle axios errors with correct status codes
+  - Removed deprecated `API_CALL_ERROR` handling in favor of direct axios error handling
+  - Fixed internal server error code to use consistent string format (`"INTERNAL_SERVER_ERROR"`)
+  - Error responses now properly include status codes, trace IDs, and formatted error messages from API responses
+
+
 # Version 3.1.1
 
 **Release Date** 30 June 24

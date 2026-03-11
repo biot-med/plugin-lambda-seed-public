@@ -1,5 +1,4 @@
 import {
-  API_CALL_ERROR,
   JWT_ERROR,
   NO_EVENT_ERROR,
   NO_DATA_ERROR,
@@ -7,26 +6,11 @@ import {
   BIOT_APP_NAME,
 } from "../constants.js";
 
-import { parseTraceparentString } from "../utils/index.js";
+import { parseTraceparentString, isAxiosError, extractAxiosErrorInfo } from "../utils/index.js";
 
 const envFallback = "Not specified";
 
 const errors = {
-  [API_CALL_ERROR]: (error, traceId) => ({
-    statusCode: 500,
-    body: {
-      code: API_CALL_ERROR,
-      message: `Call to api failed${
-        error.cause?.message
-          ? `: "${JSON.stringify(error.cause?.message)}"`
-          : "."
-      }`,
-      serviceName: BIOT_APP_NAME || envFallback,
-      traceId: traceId,
-      environment: BIOT_SERVICE_ENVIRONMENT || envFallback,
-      details: {},
-    },
-  }),
   [JWT_ERROR]: (error, traceId) => ({
     statusCode: 400,
     body: {
@@ -67,7 +51,7 @@ const errors = {
   internalServerError: (error, traceId) => ({
     statusCode: 500,
     body: {
-      code: InternalServerError,
+      code: "INTERNAL_SERVER_ERROR",
       message: "internal server error",
       serviceName: BIOT_APP_NAME || envFallback,
       traceId: traceId,
@@ -81,8 +65,26 @@ export const createErrorResponse = (error, traceparent) => {
   console.error("Got error: ", error);
 
   const traceId = parseTraceparentString(traceparent);
-  return (
-    (error && errors[error?.message]?.(error, traceId)) ||
-    errors.internalServerError(error, traceId)
-  );
+
+  // Handle axios errors (server errors) - these should be thrown and then formatted here
+  if (isAxiosError(error)) {
+    const axiosErrorInfo = extractAxiosErrorInfo(error);
+    return {
+      statusCode: axiosErrorInfo.statusCode,
+      body: {
+        ...axiosErrorInfo.responseData,
+        serviceName: BIOT_APP_NAME || envFallback,
+        traceId: traceId,
+        environment: BIOT_SERVICE_ENVIRONMENT || envFallback,
+      },
+    };
+  }
+
+  // Handle known error types
+  if (error && errors[error?.message]) {
+    return errors[error.message](error, traceId);
+  }
+
+  // Default to internal server error
+  return errors.internalServerError(error, traceId);
 };
