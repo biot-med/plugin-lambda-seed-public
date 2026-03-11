@@ -113,7 +113,10 @@ pipeline {
         }
         stage('Git Tag'){
             when {
-                branch 'master'
+                allOf {
+                    branch 'master'
+                    expression { return VERSION_NOT_EXIST }
+                }
             }
             environment {
                 GIT = credentials('github-pat')
