@@ -1,5 +1,6 @@
-VERSION = ''
-VERSION_NOT_EXIST = false
+def VERSION = ''
+def VERSION_NOT_EXIST = false
+def COMMIT_INFO = ''
 
 pipeline {
     agent { label 'docker-agent' }
