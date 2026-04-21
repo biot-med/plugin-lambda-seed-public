@@ -1,3 +1,13 @@
+# Version 3.3.2
+
+**Release Date** 20 Apr 2026
+
+## Changes
+
+- Bumped `axios` to 1.13.5 and related transitive dependencies.
+- Added `.env` to `.gitignore`.
+- Removed a dead comment in `scripts/pack.js`.
+
 # Version 3.3.1
 
 **Release Date** 20 Jan 2026
