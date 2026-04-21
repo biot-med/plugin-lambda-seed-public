@@ -4,7 +4,7 @@
 
 ## Changes
 
-- Bumped `axios` to 1.13.5 and related transitive dependencies.
+- Bumped `axios` to 1.15.1 and related transitive dependencies.
 - Added `.env` to `.gitignore`.
 - Removed a dead comment in `scripts/pack.js`.
 
