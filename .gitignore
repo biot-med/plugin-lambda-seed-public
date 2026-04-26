@@ -4,3 +4,4 @@ node_modules/
 dist/
 packed/
 .DS_Store
+.env

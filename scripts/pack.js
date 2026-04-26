@@ -18,7 +18,6 @@ const createBundle = async () => {
     fs.mkdirSync(__destinationDir);
   }
   try {
-    // const relativeBasePath = "..";
     await zip({
       source: [`index.js`, `src/*`, `package.json`, `node_modules/*`],
       destination: `./packed/packed.zip`,
