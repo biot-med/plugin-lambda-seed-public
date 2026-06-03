@@ -1,3 +1,10 @@
+# Version 3.3.4
+
+**Release Date** 03 Jun 2026
+
+## Changes
+- [SOFT-9695] vulnerability fixes (upgrade axios)
+
 # Version 3.3.3
 
 **Release Date** 20 Apr 2026
